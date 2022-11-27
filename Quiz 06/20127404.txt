@@ -1,0 +1,79 @@
+#include <WiFi.h>
+#include <PubSubClient.h>
+
+const char* ssid = "Wokwi-GUEST";
+const char* password = "";
+
+//***Set server***
+const char* mqttServer = "broker.hivemq.com"; 
+int port = 1883;
+
+WiFiClient espClient;
+PubSubClient client(espClient);
+
+void wifiConnect() {
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println(" Connected!");
+}
+
+void mqttReconnect() {
+  while(!client.connected()) {
+    Serial.println("Attemping MQTT connection...");
+    //***Change "123456789" by your student id***
+    if(client.connect("20127404")) {
+      Serial.println("connected");
+      //***Subscribe all topic you need***
+      client.subscribe("ID_output");
+    }
+    else {
+      Serial.println("try again in 5 seconds");
+      delay(5000);
+    }
+  }
+}
+
+void setup() {
+  Serial.begin(9600);
+  Serial.print("Connecting to WiFi");
+
+  wifiConnect();
+  client.setServer(mqttServer, port);
+  client.setCallback(callback);
+}
+
+//MQTT Receiver
+void callback(char* topic, byte* message, unsigned int length) {
+  Serial.println(topic);
+  String strMsg;
+  for(int i=0; i<length; i++) {
+    strMsg += (char)message[i];
+  }
+  Serial.println(strMsg);
+  //***Insert code here to control other devices***
+  if(strMsg == "{\"ID\":\20127404\"}")
+  {
+    client.publish("ID_input", "Nguyen Trung Nguyen");
+  }
+  if(strMsg == "{\"ID\":\20127204\"}")
+  {
+    client.publish("ID_input", "Nguyen Phuong Khanh");
+  }
+  if(strMsg == "{\"ID\":\20127333\"}")
+  {
+    client.publish("ID_input", "Unknown");
+  }
+}
+
+void loop() {
+  if(!client.connected()) {
+    mqttReconnect();
+  }
+  client.loop();
+
+  //***Change code to publish to MQTT Server***
+  delay(200);
+}

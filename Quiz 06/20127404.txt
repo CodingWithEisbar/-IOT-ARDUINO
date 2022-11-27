@@ -5,7 +5,7 @@ const char* ssid = "Wokwi-GUEST";
 const char* password = "";
 
 //***Set server***
-const char* mqttServer = "broker.hivemq.com"; 
+const char* mqttServer = "broker.mqtt-dashboard.com"; 
 int port = 1883;
 
 WiFiClient espClient;
@@ -27,7 +27,7 @@ void mqttReconnect() {
     if(client.connect("20127404")) {
       Serial.println("connected");
       //***Subscribe all topic you need***
-      client.subscribe("ID_output");
+      client.subscribe("20127404/out");
     }
     else {
       Serial.println("try again in 5 seconds");
@@ -56,15 +56,18 @@ void callback(char* topic, byte* message, unsigned int length) {
   //***Insert code here to control other devices***
   if(strMsg == "{\"ID\":\20127404\"}")
   {
-    client.publish("ID_input", "Nguyen Trung Nguyen");
+    client.publish("20127404/in", "Nguyen Trung Nguyen");
   }
   if(strMsg == "{\"ID\":\20127204\"}")
   {
-    client.publish("ID_input", "Nguyen Phuong Khanh");
+    client.publish("20127404/in", "Nguyen Phuong Khanh");
   }
   if(strMsg == "{\"ID\":\20127333\"}")
   {
-    client.publish("ID_input", "Unknown");
+    client.publish("20127404/in", "Unknown");
+  }
+  else{
+    client.publish("20127404/in", "Unknown");
   }
 }
 
@@ -75,5 +78,6 @@ void loop() {
   client.loop();
 
   //***Change code to publish to MQTT Server***
-  delay(200);
+  delay(100);
 }
+

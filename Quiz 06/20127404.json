@@ -12,7 +12,7 @@
         "type": "mqtt in",
         "z": "933a4f772c4b926b",
         "name": "",
-        "topic": "ID_input",
+        "topic": "20127404/in",
         "qos": "2",
         "datatype": "auto-detect",
         "broker": "05a7041d7a50e302",
@@ -20,7 +20,7 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 440,
+        "x": 450,
         "y": 400,
         "wires": [
             [
@@ -34,7 +34,7 @@
         "type": "mqtt out",
         "z": "933a4f772c4b926b",
         "name": "",
-        "topic": "ID_output",
+        "topic": "20127404/out",
         "qos": "2",
         "retain": "",
         "respTopic": "",
@@ -43,7 +43,7 @@
         "correl": "",
         "expiry": "",
         "broker": "05a7041d7a50e302",
-        "x": 800,
+        "x": 820,
         "y": 260,
         "wires": []
     },
@@ -113,7 +113,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 660,
+        "x": 680,
         "y": 460,
         "wires": []
     },
@@ -121,7 +121,7 @@
         "id": "05a7041d7a50e302",
         "type": "mqtt-broker",
         "name": "",
-        "broker": "broker.hivemq.com",
+        "broker": "broker.mqtt-dashboard.com",
         "port": "1883",
         "clientid": "",
         "autoConnect": true,
@@ -142,8 +142,7 @@
         "willPayload": "",
         "willMsg": {},
         "userProps": "",
-        "sessionExpiry": "",
-        "credentials": {}
+        "sessionExpiry": ""
     },
     {
         "id": "4975a809453d21ae",

@@ -1,0 +1,283 @@
+[
+    {
+        "id": "933a4f772c4b926b",
+        "type": "tab",
+        "label": "Flow 5",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8526532f6943d9b9",
+        "type": "ui_button",
+        "z": "933a4f772c4b926b",
+        "name": "",
+        "group": "4975a809453d21ae",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "⭐ Button",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "Clicked",
+        "payloadType": "str",
+        "topic": "Button",
+        "topicType": "str",
+        "x": 410,
+        "y": 180,
+        "wires": [
+            [
+                "3dfefa2a44d6b532"
+            ]
+        ]
+    },
+    {
+        "id": "3dfefa2a44d6b532",
+        "type": "function",
+        "z": "933a4f772c4b926b",
+        "name": "Push event log to array",
+        "func": "//Initalise the counter to 0 if doesn't exist already\nvar dashBoardLog = flow.get('dashboardLog')|| [];\n\ndashBoardLog.push(msg);\nif(dashBoardLog.length > 20)\n{\n    dashBoardLog.shift();\n    dashBoardLog.length = 20;\n}\n\n//Store the value back\nflow.set('dashboardLog', dashBoardLog);\n\n//Make it part of the outgoing msg object\nmsg = {}\nmsg.payload = dashBoardLog;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 180,
+        "wires": [
+            [
+                "81569ff9ff298a52",
+                "f24d71853eb66238"
+            ]
+        ]
+    },
+    {
+        "id": "81569ff9ff298a52",
+        "type": "ui_template",
+        "z": "933a4f772c4b926b",
+        "group": "4827a3f2f8c88260",
+        "name": "Logs",
+        "order": 7,
+        "width": "8",
+        "height": "10",
+        "format": "<ul>\n    <li ng-repeat=\"x in msg.payload\">\n        <font color=\"red\">{{x.topic}}</font>\n        <ul>\n            <li>{{x.payload}}</li>\n        </ul>\n    </li>\n</ul>\n",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 1090,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f24d71853eb66238",
+        "type": "debug",
+        "z": "933a4f772c4b926b",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "7393ae134ec71c39",
+        "type": "ui_dropdown",
+        "z": "933a4f772c4b926b",
+        "name": "",
+        "label": "",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "4975a809453d21ae",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": true,
+        "options": [
+            {
+                "label": "Choice 1: string",
+                "value": "Hello",
+                "type": "str"
+            },
+            {
+                "label": "Choice 2: numeric",
+                "value": 5,
+                "type": "num"
+            },
+            {
+                "label": "Choice 3: bool",
+                "value": true,
+                "type": "bool"
+            }
+        ],
+        "payload": "",
+        "topic": "Dropdown",
+        "topicType": "str",
+        "className": "",
+        "x": 400,
+        "y": 300,
+        "wires": [
+            [
+                "3dfefa2a44d6b532"
+            ]
+        ]
+    },
+    {
+        "id": "2fb67c822e017592",
+        "type": "ui_switch",
+        "z": "933a4f772c4b926b",
+        "name": "",
+        "label": "Switch",
+        "tooltip": "",
+        "group": "4975a809453d21ae",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "Switch",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 390,
+        "y": 260,
+        "wires": [
+            [
+                "3dfefa2a44d6b532"
+            ]
+        ]
+    },
+    {
+        "id": "d88a86aeb6c3f453",
+        "type": "ui_slider",
+        "z": "933a4f772c4b926b",
+        "name": "",
+        "label": "Slider",
+        "tooltip": "",
+        "group": "4975a809453d21ae",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "Slider",
+        "topicType": "str",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "className": "",
+        "x": 390,
+        "y": 360,
+        "wires": [
+            [
+                "3dfefa2a44d6b532"
+            ]
+        ]
+    },
+    {
+        "id": "45511b8956c3f788",
+        "type": "ui_numeric",
+        "z": "933a4f772c4b926b",
+        "name": "",
+        "label": "Numeric",
+        "tooltip": "",
+        "group": "4975a809453d21ae",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": true,
+        "topic": "Numeric",
+        "topicType": "str",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "className": "",
+        "x": 400,
+        "y": 400,
+        "wires": [
+            [
+                "3dfefa2a44d6b532"
+            ]
+        ]
+    },
+    {
+        "id": "2f9c2367749a92ec",
+        "type": "ui_text_input",
+        "z": "933a4f772c4b926b",
+        "name": "",
+        "label": "Change text",
+        "tooltip": "",
+        "group": "4975a809453d21ae",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": "1000",
+        "topic": "Change text",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 410,
+        "y": 440,
+        "wires": [
+            [
+                "3dfefa2a44d6b532"
+            ]
+        ]
+    },
+    {
+        "id": "4975a809453d21ae",
+        "type": "ui_group",
+        "name": "UI Elements",
+        "tab": "6ee64212ed25996c",
+        "order": 1,
+        "disp": true,
+        "width": "8",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "4827a3f2f8c88260",
+        "type": "ui_group",
+        "name": "Logs",
+        "tab": "6ee64212ed25996c",
+        "order": 2,
+        "disp": true,
+        "width": "8",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "6ee64212ed25996c",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
